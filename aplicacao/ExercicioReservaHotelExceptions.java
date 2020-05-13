@@ -31,17 +31,15 @@ public class ExercicioReservaHotelExceptions {
 			checkin = sdf.parse(sc.next());
 			System.out.print("Data check-out (dd/mm/yyyy) >>: ");
 			checkout = sdf.parse(sc.next());
-			
-			Date dtAtual = new Date();
-			
-			if(!checkin.after(dtAtual) && !checkout.after(checkout)) {
-				System.out.println("Erro na reserva: As datas de alteração da reserva devem ser posteriores a data atual");
-			}else if(!checkout.after(checkin)) {
-				System.out.println("Erro na reserva: A Data checkout deve ser posterior a data checkin");
+		
+			String erro = reserva.updateDatas(checkin, checkout);
+			if(erro != null) {
+				System.out.println(erro);
 			}else {
-				reserva.updateDatas(checkin, checkout);
 				System.out.println(reserva);
 			}
+			
+		sc.close();
 			
 			
 		}
