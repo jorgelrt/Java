@@ -40,18 +40,18 @@ public class Reserva {
 		long diferenca = checkout.getTime() - checkin.getTime();
 		return TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS);
 	}
-	public String updateDatas(Date checkin, Date checkout) {
+	public void updateDatas(Date checkin, Date checkout) {
 		Date dtAtual = new Date();
 		
 		if(!checkin.after(dtAtual) && !checkout.after(checkout)) {
-			return "Erro na reserva: As datas de alteração da reserva devem ser posteriores a data atual";
+			throw new IllegalArgumentException("As datas de alteração da reserva devem ser posteriores a data atual");
 		}
 		if(!checkout.after(checkin)) {
-			return "Erro na reserva: A Data checkout deve ser posterior a data checkin";
+			throw new IllegalArgumentException("A Data checkout deve ser posterior a data checkin");
 		}
 		this.checkin = checkin;
 		this.checkout = checkout;
-		return null;
+		
 	}
 	@Override
 	public String toString() {

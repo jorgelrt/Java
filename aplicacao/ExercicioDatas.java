@@ -33,7 +33,7 @@ public class ExercicioDatas {
 			System.out.println(sdf.format(y));
 		}
 		catch(ParseException e) {
-			System.out.println("Erro na data!"+e.getMessage());
+			System.out.println("Formato inválido"+e.getMessage());
 		}
 		finally {
 			sc.close();
