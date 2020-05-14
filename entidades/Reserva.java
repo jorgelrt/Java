@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import entidades.exceptions.DomainException;
+
 public class Reserva {
 	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	//static informa q somente sera gerado um objeto sdf
@@ -11,7 +13,10 @@ public class Reserva {
 	private Date checkin;
 	private Date checkout;
 	//Construtor
-	public Reserva(Integer nrQuarto, Date checkin, Date checkout) {
+	public Reserva(Integer nrQuarto, Date checkin, Date checkout) throws DomainException  {
+		if(!checkout.after(checkin)) {
+			throw new DomainException("A Data checkout deve ser posterior a data checkin");
+		}
 		this.nrQuarto = nrQuarto;
 		this.checkin = checkin;
 		this.checkout = checkout;
@@ -40,14 +45,14 @@ public class Reserva {
 		long diferenca = checkout.getTime() - checkin.getTime();
 		return TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS);
 	}
-	public void updateDatas(Date checkin, Date checkout) {
+	public void updateDatas(Date checkin, Date checkout) throws DomainException {
 		Date dtAtual = new Date();
 		
 		if(!checkin.after(dtAtual) && !checkout.after(checkout)) {
-			throw new IllegalArgumentException("As datas de alteração da reserva devem ser posteriores a data atual");
+			throw new DomainException("As datas de alteração da reserva devem ser posteriores a data atual");
 		}
 		if(!checkout.after(checkin)) {
-			throw new IllegalArgumentException("A Data checkout deve ser posterior a data checkin");
+			throw new DomainException("A Data checkout deve ser posterior a data checkin");
 		}
 		this.checkin = checkin;
 		this.checkout = checkout;
