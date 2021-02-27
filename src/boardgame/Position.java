@@ -5,7 +5,6 @@ public class Position {
 	private int column;
 	//Construtor
 	public Position(int row, int column) {
-		super();
 		this.row = row;
 		this.column = column;
 	}
@@ -23,6 +22,13 @@ public class Position {
 		this.column = column;
 	}
 	//Others
+	/*
+	public void setValues(row int, column int) {
+		this.row = row;
+		this.column = column;
+	}
+	*/
+	
 	@Override
 	public String toString() {
 		return row +", "+column;
